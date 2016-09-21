@@ -90,8 +90,8 @@ public class AvatarImageView extends ImageView {
     private AfterCropListener afterCropListener;
     private String btnClickedColor;
 
-    private String name;
-    private String path;
+    private String name = "test";
+    private String path = "/avatar/";
 
     public AvatarImageView(Context context) {
         super(context);
@@ -132,6 +132,7 @@ public class AvatarImageView extends ImageView {
     public void setFile(String name , String path){
         this.name = name;
         this.path = path;
+        init();
     }
     public void init() {
         fileSavePath = Environment.getExternalStorageDirectory()
@@ -399,7 +400,7 @@ public class AvatarImageView extends ImageView {
      * @param output 裁剪后图片
      */
     public void startActionCrop(Uri input, Uri output) {
-
+        System.out.println("caijian");
         Intent intentCamera = new Intent("com.android.camera.action.CROP");
         intentCamera.setDataAndType(input, "image/*");// 源文件地址
         intentCamera.putExtra("crop", true);
