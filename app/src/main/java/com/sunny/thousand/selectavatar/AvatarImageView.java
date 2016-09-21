@@ -19,6 +19,7 @@ import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.RippleDrawable;
+import android.graphics.drawable.StateListDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -89,48 +90,49 @@ public class AvatarImageView extends ImageView {
     private AfterCropListener afterCropListener;
     private String btnClickedColor;
 
-    private String imgName = null;
-    public AvatarImageView(Context context,String  path) {
+    private String name;
+    private String path;
+
+    public AvatarImageView(Context context) {
         super(context);
         this.mContext = context;
         //在编辑模式下不需要进行初始化
         if (!this.isInEditMode()) {
             //初始化文件相关
-            init(imgName,path);
+            init();
             //初始化点击事件
             initClickListener();
         }
     }
 
 
-    public AvatarImageView(Context context, String name,String  path) {
-        super(context);
+    public AvatarImageView(Context context, AttributeSet attrs) {
+        super(context, attrs);
         this.mContext = context;
         //在编辑模式下不需要进行初始化
         if (!this.isInEditMode()) {
             //初始化文件相关
-            init(name,path);
+            init();
             //初始化点击事件
             initClickListener();
         }
     }
 
-    public AvatarImageView(Context context, AttributeSet attrs, int defStyleAttr,String  path) {
+    public AvatarImageView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         this.mContext = context;
         //在编辑模式下不需要进行初始化
         if (!this.isInEditMode()) {
             //初始化文件相关
-            init(imgName,path);
+            init();
             //初始化点击事件
             initClickListener();
         }
     }
 
-    public void init(String userid,String path) {
-        this.imgName = userid;
+    public void init() {
         fileSavePath = Environment.getExternalStorageDirectory()
-                .getAbsolutePath() + path;
+                .getAbsolutePath() + "/avatar";
         // 判断是否挂载了SD卡
         String storageState = Environment.getExternalStorageState();
         // 挂载了SD卡
@@ -158,7 +160,7 @@ public class AvatarImageView extends ImageView {
         String timeStamp = new SimpleDateFormat("yyyyMMddHHmmss", Locale.CHINA).format(new Date());
         // 照片命名
         String origFileName = "pic_origin_" + timeStamp + ".jpg";
-        String cropFileName = imgName + ".jpg";
+        String cropFileName = "pic_after_crop_" + timeStamp + ".jpg";
 
         // 裁剪头像的绝对路径
         absolutePicPath = fileSavePath + cropFileName;
