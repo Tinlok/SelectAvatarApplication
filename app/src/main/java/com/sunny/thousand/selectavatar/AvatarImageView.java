@@ -129,10 +129,13 @@ public class AvatarImageView extends ImageView {
             initClickListener();
         }
     }
-
+    public void setFile(String name , String path){
+        this.name = name;
+        this.path = path;
+    }
     public void init() {
         fileSavePath = Environment.getExternalStorageDirectory()
-                .getAbsolutePath() + "/avatar";
+                .getAbsolutePath() + path;
         // 判断是否挂载了SD卡
         String storageState = Environment.getExternalStorageState();
         // 挂载了SD卡
@@ -160,7 +163,7 @@ public class AvatarImageView extends ImageView {
         String timeStamp = new SimpleDateFormat("yyyyMMddHHmmss", Locale.CHINA).format(new Date());
         // 照片命名
         String origFileName = "pic_origin_" + timeStamp + ".jpg";
-        String cropFileName = "pic_after_crop_" + timeStamp + ".jpg";
+        String cropFileName = name+".jpg";
 
         // 裁剪头像的绝对路径
         absolutePicPath = fileSavePath + cropFileName;
