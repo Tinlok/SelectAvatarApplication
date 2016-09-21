@@ -334,10 +334,15 @@ public class AvatarImageView extends ImageView {
      * 选择图片 图片相册
      */
     private void startActionPickCrop() {
-        Intent intent = new Intent(Intent.ACTION_PICK, null);
-        intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
-        ((Activity) this.mContext).startActivityForResult(intent,
-                AvatarImageView.REQUEST_IMAGE_BY_SDCARD);
+        try {
+            Intent intent = new Intent(Intent.ACTION_PICK, null);
+            intent.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
+            ((Activity) this.mContext).startActivityForResult(intent,
+                    AvatarImageView.REQUEST_IMAGE_BY_SDCARD);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
     }
 
     /**
@@ -374,7 +379,7 @@ public class AvatarImageView extends ImageView {
                     this.setImageBitmap(photo);
 
                     if (afterCropListener != null) {
-                        afterCropListener.afterCrop(photo);
+                        afterCropListener.afterCrop(absolutePicPath);
                     }
                 }
                 break;
@@ -481,7 +486,7 @@ public class AvatarImageView extends ImageView {
     //图片裁剪完的监听器
     public interface AfterCropListener {
         // 在裁剪完后会调用该函数
-        void afterCrop(Bitmap photo);
+        void afterCrop(String url);
     }
 
     public void setAfterCropListener(AfterCropListener afterCropListener) {

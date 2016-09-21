@@ -37,7 +37,7 @@ public class MainActivity extends Activity {
 
         avatarImageView.setAfterCropListener(new AvatarImageView.AfterCropListener() {
             @Override
-            public void afterCrop(Bitmap photo) {
+            public void afterCrop(String url) {
                 Toast.makeText(MainActivity.this,"设置新的头像成功",Toast.LENGTH_SHORT).show();
             }
         });
