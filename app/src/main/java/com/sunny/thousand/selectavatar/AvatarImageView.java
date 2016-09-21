@@ -103,13 +103,13 @@ public class AvatarImageView extends ImageView {
     }
 
 
-    public AvatarImageView(Context context, AttributeSet attrs,String  path) {
-        super(context, attrs);
+    public AvatarImageView(Context context, String name,String  path) {
+        super(context);
         this.mContext = context;
         //在编辑模式下不需要进行初始化
         if (!this.isInEditMode()) {
             //初始化文件相关
-            init(imgName,path);
+            init(name,path);
             //初始化点击事件
             initClickListener();
         }
